@@ -54,17 +54,24 @@ void display(){
 
 }
 int main(){
-    push(6);
-    push(7);
-    push(8);
-    push(5);
+    // push(6);
+    // push(7);
+    // push(8);
+    // push(5);
+    // push(3);
+    // pop();
+    // push(10);
+    // pop();
+    // pop();
+    // peek();
+    // display();
+    push(2);
     push(3);
-    pop();
-    push(10);
-    pop();
-    pop();
-    peek();
+    push(4);
     display();
+    peek();
+
+
     return 0;
     
 

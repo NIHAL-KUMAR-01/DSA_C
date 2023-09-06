@@ -1,0 +1,5 @@
+py.py
+
+x = 300
+def myfunc():
+    print(x)

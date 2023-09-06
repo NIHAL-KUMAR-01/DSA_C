@@ -20,5 +20,6 @@ void push(int element){
 }
 int main(){
     push(10);
+    push(100);
     return 0;
 }

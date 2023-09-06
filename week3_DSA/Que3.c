@@ -2,8 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    char data[] = "12345";
+    char data[] = "DATA_STRUCTURE";
     int len = sizeof(data) / sizeof(char) - 1;
+    printf("Original String: %s\n", data);
     
     for (int i = 0; i < len / 2; i++) {
         char temp = data[i];

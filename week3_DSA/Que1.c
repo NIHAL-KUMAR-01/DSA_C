@@ -24,7 +24,7 @@ void push(int element){
     else{
             top++;
             stack[top]=element; 
-            printf("\n%d  is added successfully in the stack\n",element);
+            printf("%d  is added successfully in the stack\n",element);
 
         }
 }
@@ -34,7 +34,7 @@ void pop(){
         printf("Stack is Empty");
     }
     else{
-        printf("\n%d is deleted from the stack\n",stack[top]);
+        printf("%d is deleted from the stack\n",stack[top]);
         top--;
     }
     
