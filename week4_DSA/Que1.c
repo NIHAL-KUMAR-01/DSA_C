@@ -10,7 +10,7 @@
 int queue[size];
 int front = -1, rear = -1; 
 //algo--for insertion use rear,and deletion use front 
-
+//for insertion
 void enqueue(int value) {
     if (rear == size - 1) {
         printf("Queue is full. Cannot insert.\n");
@@ -24,7 +24,7 @@ void enqueue(int value) {
         printf("%d inserted into the queue.\n", value);
     }
 }
-
+//for deletion 
 void dequeue() {
     if (front == -1 || front >rear) {
         printf("Queue is empty. Cannot delete.\n");
