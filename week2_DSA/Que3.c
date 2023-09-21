@@ -35,7 +35,7 @@ int main(){
         int new[3][nonzero];
 
 
-    if ((total-nonzero)>=(total/2))//50 or more than 50%
+    if ((total-nonzero)>=(total/2))//50 or more than 50% 0
     {
         printf("\nIt is a sparse matrix\n\n");
         int k=0;

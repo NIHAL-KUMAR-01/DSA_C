@@ -1,57 +1,63 @@
-#include <stdio.h>
+#include<stdio.h>
 #include<conio.h>
-#include <stdlib.h>
+#include<stdlib.h>
+
 struct link
 {
-    int info;
-    struct link *next;//next---address for next
+	int info;
+	struct link *next;
 };
 void create(struct link *node);
 void display(struct link *node);
-int main()
+
+void main()
 {
-    struct link *node;
-    node = (struct link *)malloc(sizeof(struct link));
-    if (node == NULL)
-    {
-        printf("Memory Not Allocated");
-        exit(0);
-    }
-    create(node);
-    display(node);
-    return 0;
+	struct link *node;
+	node = (struct link *)malloc(sizeof(struct link));
+	if(node==NULL)
+	{
+		printf("\n Memory is not allocated");
+		exit(0);
+	}
+	
+	create(node);
+	display(node);
 }
+	
 void create(struct link *node)
 {
-    char option;
-    printf("\nEnter value ");
-    scanf("%d", &node->info);
-    node->next = NULL;
-    printf("\nAny more node you want('y'or'n') :");
-    option = getche();
-    while (option == 'y' || option == 'Y')
-    {
-        node = (struct link *)malloc(sizeof(struct link));
-        if (node == NULL)
-        {
-            printf("Memory Not Allocated");
-            exit(0);
-        }
-        node = node->next;
-        printf("\nEnter value ");
-        scanf("%d", &node->info);
-        node->next = NULL;
-        printf("\nAny more node you want('y'or'n') :");
-        option = getche();
-    }
+	char opt;
+	printf("\n Enter a value: ");
+	scanf("%d", &node->info);
+	node->next=NULL;
+	printf("\n Any more to entry(y/n): ");
+	opt=getche();
+	while(opt=='Y' || opt=='y')
+	{
+		node->next=(struct link *)malloc(sizeof(struct link));
+		if(node==NULL)
+		{
+			printf("\n Memory is not allocated");
+			exit(0);
+		}
+		node=node->next;
+		printf("\n Enter a value: ");
+		scanf("%d", &node->info);
+		node->next=NULL;
+		printf("\n Any more to entry(y/n): ");
+		opt=getche();
+	}
 }
-
-void display(struct link*node){
-    while (node==NULL)
-    {
-        printf("%d \n",node->next);
-        node=node->next;
-    }
+void display(struct link *node)
+{
+	while(node!=NULL)
+	{
+		printf("\n%d", node->info);
+		node=node->next;
+	}
 }
-
-
+	
+int main(){
+    
+    return 0;
+}
