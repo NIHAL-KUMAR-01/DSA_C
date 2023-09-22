@@ -57,7 +57,3 @@ void display(struct link *node)
 	}
 }
 	
-int main(){
-    
-    return 0;
-}
