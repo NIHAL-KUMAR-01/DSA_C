@@ -1,64 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct Node
-{
+
+struct node {
     int data;
-    struct Node *next;
+    struct node* next;
 };
-struct Node *createNode(int data)
-{
-    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-void insertEnd(struct Node **head, int data)
-{
-    struct Node *newNode = createNode(data);
-    if (*head == NULL)
-    {
-        *head = newNode;
-        return;
+
+struct node* createnode(int data) {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    if (newnode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1); 
     }
-    struct Node *temp = *head;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-    temp->next = newNode;
+    newnode->data = data;
+    newnode->next = NULL;
+    return newnode;
 }
-int findSum(struct Node *head)
+void linked_display(struct node *current)
 {
-    int sum = 0;
-    struct Node *current = head;
     while (current != NULL)
     {
+        printf("%d ->", current->data);
+        current = current->next;
+    }
+    printf("NULL");
+}
+
+int sumLinkedList(struct node* head) {
+    int sum = 0;
+    struct node* current = head;
+    
+    while (current != NULL) {
         sum += current->data;
         current = current->next;
     }
+    
     return sum;
 }
-void printList(struct Node *head)
-{
-    struct Node *current = head;
-    while (current != NULL)
-    {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
-}
-int main()
-{
-    struct Node *head = NULL;
-    insertEnd(&head, 10);
-    insertEnd(&head, 20);
-    insertEnd(&head, 30);
-    insertEnd(&head, 40);
-    insertEnd(&head, 50);
-    printf("Linked List: ");
-    printList(head);
-    int sum = findSum(head);
-    printf("Sum of all elements in the list: %d\n", sum);
+
+int main() {
+    struct node* head = createnode(10);
+    head->next = createnode(30);
+    head->next->next = createnode(20);
+    head->next->next->next = createnode(40);
+    head->next->next->next->next = createnode(50);
+    linked_display(head);
+    int totalSum = sumLinkedList(head);
+    printf("\nSum of all elements in the linked list: %d\n", totalSum);
     return 0;
 }

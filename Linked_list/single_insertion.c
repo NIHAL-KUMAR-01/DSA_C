@@ -6,7 +6,7 @@ struct node
     struct node*next;
 };
 void linked_display(struct node *current){
-    printf(":-----Single linked list:-----\n");
+    printf("\n      :-----Single linked list:-----\n");
     while (current!=NULL)
     {
         printf("%d ->",current->data);
@@ -14,6 +14,7 @@ void linked_display(struct node *current){
     }
     printf("NULL");
 }
+/*------------------------------------------------INSERTION------------------------------------------------*/
 struct node* insertatfirst(struct node *head){
     struct node *new=(struct node*)malloc(sizeof(struct node));
     printf("\nEnter data for new node: ");
@@ -28,8 +29,6 @@ struct node*insertatlast(struct node *head){
     while(temp->next!=NULL){
         temp=temp->next;
     }
-    // temp=temp->next;
-
     printf("\nEnter data for last new node: ");
     scanf("%d",&lastnew->data);
     temp->next=lastnew;
@@ -66,6 +65,30 @@ struct node*insertatposition(struct node *head){
         return head;
     }
 }
+/*------------------------------------------------DELETION------------------------------------------------*/
+struct node * deletionatfirst(struct node* head){
+    struct node*temp=head;
+
+    head=head->next;
+    printf("\n%d is De-linked from beginning  ",temp->data);
+    temp->next=NULL;
+    free(temp);
+    return head;
+
+}
+
+struct node *deletionatlast(struct node *head){
+    struct node*temp=head;
+    while (temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    struct node*temp2=temp->next;
+    temp->next=NULL;
+    free(temp2);
+    return head;
+    
+}
 
 int main(){
     struct node *head;
@@ -92,6 +115,10 @@ int main(){
     head=insertatlast(head);
     linked_display(head);
     head=insertatposition(head);
+    linked_display(head);
+    head=deletionatfirst(head);
+    linked_display(head);
+    head=deletionatlast(head);
     linked_display(head);
 
     return 0;

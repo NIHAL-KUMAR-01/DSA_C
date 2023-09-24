@@ -1,78 +1,65 @@
+/*Write a C program to implement a singly linked list and perform a search operation to find a specific element in the list. */
 #include <stdio.h>
 #include <stdlib.h>
-struct Node
+struct node
 {
     int data;
-    struct Node *next;
+    struct node *next;
 };
-struct Node *createNode(int data)
+void linked_display(struct node *current)
 {
-    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-void insertEnd(struct Node **head, int data)
-{
-    struct Node *newNode = createNode(data);
-    if (*head == NULL)
-    {
-        *head = newNode;
-        return;
-    }
-    struct Node *temp = *head;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-    temp->next = newNode;
-}
-int search(struct Node *head, int target)
-{
-    struct Node *current = head;
-    int position = 1;
     while (current != NULL)
     {
-        if (current->data == target)
+        printf("%d ->", current->data);
+        current = current->next;
+    }
+    printf("NULL");
+}
+void search_element(struct node *head){
+    struct node *temp = head;
+    int counter = 0; // Initialize counter to 0
+    int search;
+    int pos = 1; // Initialize pos to 1
+    printf("\nEnter the element to search: ");
+    scanf("%d", &search);
+    
+    while (temp != NULL)
+    {
+        if (temp->data == search)
         {
-            return position;
+            counter++;
+            printf("Element found at position %d\n", pos);
         }
-        current = current->next;
-        position++;
+        temp = temp->next;
+        pos++;
     }
-    return -1;
+    if (counter == 0)
+        printf("Element not found in the linked list\n");
+    else
+        printf("Total Frequency of %d: %d\n", search, counter);
 }
-void printList(struct Node *head)
-{
-    struct Node *current = head;
-    while (current != NULL)
-    {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
-}
+
 int main()
 {
-    struct Node *head = NULL;
-    insertEnd(&head, 10);
-    insertEnd(&head, 20);
-    insertEnd(&head, 30);
-    insertEnd(&head, 40);
-    insertEnd(&head, 50);
-    printf("Linked List: ");
-    printList(head);
-    int target;
-    printf("Enter value to be searched: ");
-    scanf("%d", &target);
-    int position = search(head, target);
-    if (position != -1)
-    {
-        printf("%d found at position %d\n", target, position);
-    }
-    else
-    {
-        printf("%d not found in the list\n", target);
-    }
+    struct node *head, *second, *third, *fourth, *fifth;
+    head = (struct node *)malloc(sizeof(struct node));
+    second = (struct node *)malloc(sizeof(struct node));
+    third = (struct node *)malloc(sizeof(struct node));
+    fourth = (struct node *)malloc(sizeof(struct node));
+    fifth = (struct node *)malloc(sizeof(struct node));
+    head->data = 10;
+    head->next = second;
+    second->data = 30;
+    second->next = third;
+    third->data = 20;
+    third->next = fourth;
+    fourth->data = 40;
+    fourth->next = fifth;
+    fifth->data = 50;
+    fifth->next = NULL;
+    linked_display(head);
+    search_element(head);
+
+
     return 0;
 }
