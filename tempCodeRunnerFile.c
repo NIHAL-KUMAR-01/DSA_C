@@ -1,90 +1,111 @@
+//Q2
+
 #include <stdio.h>
 #include <stdlib.h>
 
-// Forward declaration of struct node
-struct node;
-
-// Define a structure for a doubly linked list node
-struct node {
+struct Node
+{
+    struct Node *prev;
     int data;
-    struct node *next;
-    struct node *prev;
+    struct Node *next;
 };
 
-/* Insert a new node at the beginning of the doubly linked list */
-struct node *insert_at_beginning(struct node *head, int data) {
-    struct node *new_node = malloc(sizeof(struct node));
-    new_node->data = data;
-    new_node->next = head;
-    new_node->prev = NULL;
+struct Node *insertAtEnd(struct Node *head)
+{
+    struct Node *new;
+    new = (struct Node *)malloc(sizeof(struct Node));
+    new->prev = NULL;
+    printf("Enter Data : ");
+    scanf("%d", &new->data);
+    new->next = NULL;
 
-    if (head != NULL) {
-        head->prev = new_node;
+    if (head == NULL)
+    {
+        return new;
     }
 
-    return new_node;
-}
+    struct Node *temp = head;
 
-/* Insert a new node after a given node in the doubly linked list */
-struct node *insert_after_node(struct node *prev_node, int data) {
-    struct node *new_node = malloc(sizeof(struct node));
-    new_node->data = data;
-    new_node->next = prev_node->next;
-    new_node->prev = prev_node;
-
-    if (prev_node->next != NULL) {
-        prev_node->next->prev = new_node;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
     }
 
-    prev_node->next = new_node;
+    temp->next = new;
+    new->prev = temp;
 
-    return new_node;
+    return head;
 }
 
-/* Insert a new node at the end of the doubly linked list */
-struct node *insert_at_end(struct node *head, int data) {
-    struct node *new_node = malloc(sizeof(struct node));
-    new_node->data = data;
-    new_node->next = NULL;
-    new_node->prev = NULL;
+void showLinkList(struct Node *ptr)
+{
+    if (ptr == NULL)
+    {
+        printf("\n\nLinked list is Empty.");
+    }
+    else
+    {
+        printf("\nDouble-Link List contains : \nNULL");
+        while (ptr != NULL)
+        {
+            printf("<->%d", ptr->data);
+            ptr = ptr->next;
+        }
+        printf("<->NULL");
+    }
+}
 
-    if (head == NULL) {
-        head = new_node;
-    } else {
-        struct node *temp = head;
-        while (temp->next != NULL) {
+struct Node *delete(struct Node *head)
+{
+    struct Node *temp = head;
+    
+    while (temp != NULL)
+    {
+        if (temp->data == 30)
+        {
+            if (temp->prev == NULL)
+            {
+                head = temp->next;
+                if (head != NULL)
+                {
+                    head->prev = NULL;
+                }
+                free(temp);
+                temp = head;
+                // return head;
+            }
+
+            else
+            {
+                struct Node *prevNode = temp->prev;
+                struct Node *nextNode = temp->next;
+                prevNode->next = nextNode;
+                if (nextNode != NULL)
+                {
+                    nextNode->prev = prevNode;
+                }
+                temp = temp->next;
+            }
+        }
+        else
+        {
             temp = temp->next;
         }
-
-        temp->next = new_node;
-        new_node->prev = temp;
     }
-
-    return new_node;
+    return head;
 }
 
-/* Display the doubly linked list */
-void displayList(struct node *head) {
-    printf("Doubly Linked List: ");
-    struct node *current = head;
-    while (current != NULL) {
-        printf("%d ", current->data);
-        current = current->next;
+int main()
+{
+    struct Node *head = NULL;
+
+    for (int i = 0; i < 6; i++)
+    {
+        head = insertAtEnd(head);
     }
-    printf("\n");
-}
 
-int main() {
-    struct node *head = NULL;
-
-    // Insert nodes at the beginning, after a node, and at the end
-    head = insert_at_beginning(head, 10);
-    head = insert_after_node(head, 20);
-    head = insert_after_node(head->next, 30);
-    head = insert_at_end(head, 40);
-
-    // Display the doubly linked list
-    displayList(head);
+    head = delete(head);
+    showLinkList(head);
 
     return 0;
 }

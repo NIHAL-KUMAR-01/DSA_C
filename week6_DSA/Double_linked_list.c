@@ -163,6 +163,5 @@ int main()
     linked_display(head);
     head=deletionatpos(head);
     linked_display(head);
-
     return 0;
 }
