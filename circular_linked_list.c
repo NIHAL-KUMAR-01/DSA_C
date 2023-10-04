@@ -25,21 +25,17 @@ struct Node *insertEnd(struct Node * head){
     struct Node * new = (struct Node*)malloc(sizeof(struct Node));
     printf("Enter value : ");
     scanf("%d", &new->data);
-
     if(head==NULL){
         head=new;
         head->next=NULL;
         return head;
     }
-    
     struct Node * temp = head;
     while(temp->next!=NULL){
         temp=temp->next;
     }
-    
     new->next=NULL;
     temp->next=new;
-    
     return head;
 }
 
@@ -47,12 +43,10 @@ struct Node *insertAtSpecificPosition(struct Node *head){
     struct Node * new = (struct Node*)malloc(sizeof(struct Node));
     printf("\nEnter value : ");
     scanf("%d", &new->data);
-
     int i = 0, pos=0;
-
     printf("Enter position : ");
-    scanf("%d", &pos);printf("\n");
-
+    scanf("%d", &pos);
+    printf("\n");
     if(pos==1){
         struct Node * temp = head;
         while (temp->next!=head)

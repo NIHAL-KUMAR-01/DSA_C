@@ -5,15 +5,23 @@ struct node{
     int data;
     struct node*next;
 };
-void linked_display(struct node *current)
-{
-    while (current != NULL)
-    {
-        printf("%d ->", current->data);
+// void linked_display(struct node *current)
+// {
+//     while (current != NULL)
+//     {
+//         // printf("%d ->", current->data);
+//         printf("%d -> ",current->data);
+//         current = current->next;
+//     }
+//     // printf("NULL");
+// }
+void linked_display(struct node* current) {
+    while (current != NULL) {
+        printf("%d || Address: %p || Next: %p\n", current->data, current, current->next);
         current = current->next;
     }
-    // printf("NULL");
 }
+
 struct node*insertatlast(struct node *head){
     struct node*temp=head;
     struct node*lastnew=(struct node*)malloc(sizeof(struct node));
@@ -46,7 +54,7 @@ int main(){
     head=insertatlast(head);
     linked_display(head);
     struct node*head2=(struct node *)malloc(sizeof(struct node));
-    head2->next=NULL;
+    head2->next=NULL; 
     printf("\nEnter initial Data For Second linked list 2: ");
     scanf("%d",&head2->data);
     head2=insertatlast(head2);

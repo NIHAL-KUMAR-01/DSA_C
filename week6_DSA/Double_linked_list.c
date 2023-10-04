@@ -130,8 +130,8 @@ struct node *deletionatpos(struct node *head){
         }
         struct node*temp2=temp->next;
         temp->next=temp2->next;
-        struct node*temp3=temp2->next;
         temp2->pre=temp;
+        free(temp2);
         return head;
     }
 }
