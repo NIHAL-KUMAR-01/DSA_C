@@ -1,143 +1,341 @@
-#include <iostream>
-
+#include<iostream>
+#include<string>
 using namespace std;
 
-// Base class
-class Base {
-public:
-    void display() {
-        cout << "Base class" << endl;
-    }
+//ͨ��¼��󴢴�����
+#define Max 1000 //�������
+
+
+//����һ����ϵ�˽ṹ��
+struct Contacts
+{
+	string cName;		//����
+	int cGender = 1;	//�Ա�
+	int cAge = 0;		//����
+	string cPhone;		//�绰����
+	string cAdd;		//סַ
 };
 
-// Derived class for Single Inheritance
-class SingleInheritance : public Base {
-public:
-    void display() {
-        cout << "Single Inheritance" << endl;
-    }
+//����һ��ͨ��¼�ṹ��
+struct AddressBooks
+{
+	Contacts contactsArry[Max];	//ͨ��¼��ϵ����Ϣ����
+	int aCount = 0;					//ͨ��¼����Ա�ĸ���
 };
 
-// Derived classes for Multiple Inheritance
-class ClassA {
-public:
-    void display() {
-        cout << "Class A" << endl;
-    }
-};
+//��ʾ���˵�
+void showMenu()
+{
+	cout << "********************************" << endl;
+	cout << "***** ͨ �� ¼ �� �� ϵ ͳ *****" << endl;
+	cout << "********************************" << endl;
+	cout << "*****    1��������ϵ��     *****" << endl;
+	cout << "*****    2����ʾ��ϵ��     *****" << endl;
+	cout << "*****    3��ɾ����ϵ��     *****" << endl;
+	cout << "*****    4��������ϵ��     *****" << endl;
+	cout << "*****    5���޸���ϵ��     *****" << endl;
+	cout << "*****    6�������ϵ��     *****" << endl;
+	cout << "*****    0���˳�ͨ��¼     *****" << endl;
+	cout << "********************************" << endl;
+	cout << "***********Version1.0***********" << endl;
+	cout << "********************************" << endl;
+}
 
-class ClassB {
-public:
-    void display() {
-        cout << "Class B" << endl;
-    }
-};
+//������ϵ��
+void AddContacts(AddressBooks* abs)
+{
+	//�ж��Ƿ���Ա
+	if (abs->aCount == Max)
+	{
+		cout << "ͨ��¼�������޷����ӣ�" << endl;
+		return;
+	}
+	else
+	{
+		//����
+		string name;
+		cout << "������������ " << endl;
+		cin >> name;
+		abs->contactsArry[abs->aCount].cName = name;
 
-class MultipleInheritance : public ClassA, public ClassB {
-public:
-    void display() {
-        cout << "Multiple Inheritance" << endl;
-    }
-};
+		//�Ա�
+		int gender;
+		cout << "�������Ա� " << endl;
+		cout << "1 ---- �� " << endl;
+		cout << "2 ---- Ů " << endl;
 
-// Derived class for Multipath Inheritance
-class Parent {
-public:
-    void display() {
-        cout << "Parent" << endl;
-    }
-};
+		while (true)
+		{
+			cin >> gender;
+			if (gender == 1 || gender == 2)
+			{
+				abs->contactsArry[abs->aCount].cGender = gender;
+				break;
+			}
+			cout << "�����������������룡" << endl;
+		}
 
-class Child1 : public Parent {
-};
+		//����
+		int age;
+		cout << "���������䣺 " << endl;
+		cin >> age;
+		abs->contactsArry[abs->aCount].cAge = age;
 
-class Child2 : public Parent {
-};
+		//�绰
+		string phone;
+		cout << "������绰�� " << endl;
+		cin >> phone;
+		abs->contactsArry[abs->aCount].cPhone = phone;
 
-class MultipathInheritance : public Child1, public Child2 {
-};
+		//��ַ
+		string add;
+		cout << "�������ַ�� " << endl;
+		cin >> add;
+		abs->contactsArry[abs->aCount].cAdd = add;
 
-// Derived classes for Hierarchical Inheritance
-class ChildA : public Base {
-};
+		//������һ
+		abs->aCount += 1;
+		cout << "���ӳɹ���" << endl;
+		system("pause");
+		//����
+		system("cls");
+	}
 
-class ChildB : public Base {
-};
+}
 
-// Derived class for Multilevel Inheritance
-class Grandparent {
-public:
-    void display() {
-        cout << "Grandparent" << endl;
-    }
-};
+//��ʾ��ϵ��
+void ShowContacts(AddressBooks* abs)
+{
+	if (abs->aCount == 0)
+	{
+		cout << "����ϵ�ˣ���������һ�°�!" << endl;
+	}
+	else
+	{
+		//��ʾ������ϵ��
+		for (int i = 0; i < abs->aCount; i++)
+		{
+			cout << "������" << abs->contactsArry[i].cName << " �Ա�" << (abs->contactsArry[i].cGender != 2 ? "��" : "Ů") << " ���䣺" << abs->contactsArry[i].cAge << " �绰��" << abs->contactsArry[i].cPhone << " סַ��" << abs->contactsArry[i].cAdd << endl;
+		}
+	}
+	system("pause");
+	system("cls");
+}
 
-class ParentA : public Grandparent {
-};
+//���ĳ���Ƿ����
+int IsExit(AddressBooks* abs, string name)
+{
+	for (int i = 0; i < abs->aCount; i++)
+	{
+		if (abs->contactsArry[i].cName == name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
 
-class MultilevelInheritance : public ParentA {
-};
+//ɾ����ϵ��
+void DeleteContacts(AddressBooks* abs)
+{
+	//��¼�û����������
+	string name;
+	cout << "��������Ҫɾ�����û�������" << endl;
+	cin >> name;
+	//�ж���ϵ���Ƿ����
+	int index = IsExit(abs, name);
+	//����
+	if (index > -1)
+	{
+		for (int i = index; i < abs->aCount - 1; i++)
+		{
+			//��ǰ��λ����
+			Contacts temp = abs->contactsArry[i];
+			abs->contactsArry[i] = abs->contactsArry[i + 1];
+			abs->contactsArry[i + 1] = temp;
+		}
+		//����һ����¼
+		abs->aCount--;
+		cout << "ɾ���ɹ���" << endl;
+	}
+	else//������
+	{
+		cout << "���޴���" << endl;
+	}
+	system("pause");
+	system("cls");
+}
 
-// Hybrid Inheritance (Combination of above types)
+//������ϵ��
+void GetContacts(AddressBooks* abs)
+{
+	//��¼�û����������
+	string name;
+	cout << "��������Ҫ���ҵ��û�����" << endl;
+	cin >> name;
+	//�ж���ϵ���Ƿ����
+	int index = IsExit(abs, name);
+	if (index > -1)
+	{
+		//����
+		cout << "������" << abs->contactsArry[index].cName << endl;
+		cout << "�Ա�" << abs->contactsArry[index].cGender << endl;
+		cout << "���䣺" << abs->contactsArry[index].cAge << endl;
+		cout << "�绰��" << abs->contactsArry[index].cPhone << endl;
+		cout << "סַ��" << abs->contactsArry[index].cAdd << endl;
+	}
+	else
+	{
+		//������
+		cout << "���޴���" << endl;
+	}
+	system("pause");
+	system("cls");
 
-int main() {
-    int choice;
-    do {
-        cout << "Menu:" << endl;
-        cout << "1. Single Inheritance" << endl;
-        cout << "2. Multiple Inheritance" << endl;
-        cout << "3. Multipath Inheritance" << endl;
-        cout << "4. Hierarchical Inheritance" << endl;
-        cout << "5. Multilevel Inheritance" << endl;
-        cout << "6. Exit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
+}
 
-        switch (choice) {
-            case 1:
-                {
-                    SingleInheritance obj;
-                    obj.display();
-                    break;
-                }
-            case 2:
-                {
-                    MultipleInheritance obj;
-                    obj.ClassA::display();
-                    obj.ClassB::display();
-                    obj.display();
-                    break;
-                }
-            case 3:
-                {
-                    MultipathInheritance obj;
-                    obj.Child1::display();
-                    obj.Child2::display();
-                    obj.display();
-                    break;
-                }
-            case 4:
-                {
-                    ChildA objA;
-                    ChildB objB;
-                    objA.display();
-                    objB.display();
-                    break;
-                }
-            case 5:
-                {
-                    MultilevelInheritance obj;
-                    obj.display();
-                    break;
-                }
-            case 6:
-                cout << "Exiting program. Goodbye!" << endl;
-                break;
-            default:
-                cout << "Invalid choice. Please enter a valid option." << endl;
-                break;
-        }
-    } while (choice != 6);
+//�޸���ϵ��
+void ModefyContacts(AddressBooks* abs)
+{
+	//��¼�û����������
+	string name;
+	cout << "��������Ҫ�޸ĵ��û�����" << endl;
+	cin >> name;
+	//�ж���ϵ���Ƿ����
+	int index = IsExit(abs, name);
+	if (index > -1)
+	{
+		//����
+		//����
+		string name;
+		cout << "�������޸ĺ�������� " << endl;
+		cin >> name;
+		abs->contactsArry[index].cName = name;
 
-    return 0;
+		//�Ա�
+		int gender;
+		cout << "�������޸ĺ���Ա� " << endl;
+		cout << "1 ---- �� " << endl;
+		cout << "2 ---- Ů " << endl;
+
+		while (true)
+		{
+			cin >> gender;
+			if (gender == 1 || gender == 2)
+			{
+				abs->contactsArry[index].cGender = gender;
+				break;
+			}
+			cout << "�����������������룡" << endl;
+		}
+
+		//����
+		int age;
+		cout << "�������޸ĺ�����䣺 " << endl;
+		cin >> age;
+		abs->contactsArry[index].cAge = age;
+
+		//�绰
+		string phone;
+		cout << "�������޸ĺ�ĵ绰�� " << endl;
+		cin >> phone;
+		abs->contactsArry[index].cPhone = phone;
+
+		//��ַ
+		string add;
+		cout << "�������޸ĺ�ĵ�ַ�� " << endl;
+		cin >> add;
+		abs->contactsArry[index].cAdd = add;
+		cout << "�޸ĳɹ�!" << endl;
+	}
+	else
+	{
+		//������
+		cout << "���޴���" << endl;
+	}
+	system("pause");
+	system("cls");
+}
+
+//�����ϵ��
+void ClearContacts(AddressBooks* abs)
+{
+	string choose = "N";
+	cout << "��ȷ��Ҫ���ͨ��¼��(Y ȷ��/N ȡ��)" << endl;
+
+	while (true)
+	{
+		cin >> choose;
+		if (choose == "Y" || choose == "N")
+		{
+			break;
+		}
+		else
+		{
+			cout << "������������������!!" << endl;
+		}
+	}
+
+	if (choose == "Y")
+	{
+		abs->aCount = 0;
+		cout << "��ճɹ�!!" << endl;
+	}
+	else
+	{
+		cout << "������ȡ��!!" << endl;
+	}
+	system("pause");
+	system("cls");
+}
+
+
+int main()
+{
+	//��¼�û��������Ϣ
+	int select = 0;
+	//����һ��ͨ��¼�ṹ��
+	AddressBooks abs;
+	//���õ�ǰ����Ϊ��
+	abs.aCount = 0;
+
+	while (true)
+	{
+		//��ʾ���˵�
+		showMenu();
+
+		cin >> select;
+		switch (select)
+		{
+		case 1://1��������ϵ��
+			AddContacts(&abs);	//��ַ����
+			break;
+		case 2://2����ʾ��ϵ��
+			ShowContacts(&abs); //��ַ����
+			break;
+		case 3://3��ɾ����ϵ��
+			DeleteContacts(&abs);
+			break;
+		case 4://4��������ϵ��
+			GetContacts(&abs);
+			break;
+		case 5://5���޸���ϵ��
+			ModefyContacts(&abs);
+			break;
+		case 6://6�������ϵ��
+			ClearContacts(&abs);
+			break;
+		case 0://0���˳�ͨ��¼
+			cout << "��ӭ�´�ʹ�ã��ټ���" << endl;
+			system("pause");
+			return 0;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+	system("pause");//�����������
+	return 0;
 }

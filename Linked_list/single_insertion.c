@@ -74,7 +74,6 @@ struct node * deletionatfirst(struct node* head){
     temp->next=NULL;
     free(temp);
     return head;
-
 }
 
 struct node *deletionatlast(struct node *head){
@@ -87,7 +86,6 @@ struct node *deletionatlast(struct node *head){
     temp->next=NULL;
     free(temp2);
     return head;
-    
 }
 
 int main(){
@@ -98,8 +96,6 @@ int main(){
     head=(struct node *)malloc(sizeof(struct node));
     second=(struct node *)malloc(sizeof(struct node));    
     third=(struct node *)malloc(sizeof(struct node));
-
-
     //link first and second node
     head->data=10;
     head->next=second;

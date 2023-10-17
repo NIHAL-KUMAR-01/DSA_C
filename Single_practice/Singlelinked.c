@@ -24,8 +24,7 @@ void single_display(struct node*head){
         printf("%d -> ",temp->data);
         temp=temp->next;
     }
-    printf("NULL");
-    
+    printf("NULL"); 
 }
 int main(){
     struct node *head=(struct node *)malloc(sizeof(struct node));
@@ -37,5 +36,9 @@ int main(){
     head=insertend(head);
     head=insertend(head);
     single_display(head);
+    return 0;
 
 }
+
+
+
